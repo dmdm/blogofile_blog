@@ -333,9 +333,10 @@ def create_guid(title, date):
     #craft the python2 translation:
     if sys.version_info >= (3,):
         to_hash = eval("bytes(date.isoformat() + title,\"utf-8\")")
+        return base64.urlsafe_b64encode(hashlib.sha1(to_hash).digest()).decode('ascii')
     else:
         to_hash = eval("date.isoformat() + title.encode(\"utf-8\")")
-    return base64.urlsafe_b64encode(hashlib.sha1(to_hash).digest())
+        return base64.urlsafe_b64encode(hashlib.sha1(to_hash).digest())
 
 
 def create_permalink(auto_permalink_path, site_url,
